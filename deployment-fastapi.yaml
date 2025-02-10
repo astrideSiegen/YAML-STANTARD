@@ -4,11 +4,13 @@ metadata:
   name: fastapi-deployment
   labels:
     app: fastapi
+# Deployment specifications
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: fastapi
+  #this part configure a pod within a deployment,with his own metadata and spec
   template:
     metadata:
       labels:
@@ -16,6 +18,7 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: votreutilisateur/fastapi:latest  # Remplacez par l'image construite
+          image: kubernetes-devops-project-fastapi:latest  # Remplacez par l'image construite
           ports:
             - containerPort: 5000
+        # Should i add Db config here?

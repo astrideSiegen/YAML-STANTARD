@@ -9,6 +9,7 @@ spec:
   selector:
     app: postgres
   ports:
-  - port: 5432
-    targetPort: 5432
+  - protocol: TCP
+    port: 5432 #service port
+    targetPort: 5432 #container port
   #clusterIP: None  # Headless service requis pour le StatefulSet
