@@ -32,12 +32,17 @@ spec:
             configMapKeyRef:
               name: postgres-config
               key: POSTGRES_DB
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_HOST_AUTH_METHOD
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgres-secret
               key: POSTGRES_PASSWORD
-        volumeMounts:
+        volumeMounts: #volume mounted to the container using PVC
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
@@ -45,7 +50,7 @@ spec:
       name: postgres-storage
     spec:
       accessModes:
-          - ReadWriteMany 
+          - ReadWriteMany #pour que plusieurs pods ecrivent dessus
       storageClassName: local-path  # Nom de la StorageClass par defaut de Rancher
       resources:
         requests:

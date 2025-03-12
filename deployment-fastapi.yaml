@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: kubernetes-devops-project-fastapi:latest  # Remplacez par l'image construite
+          image: datascientest/fastapi-k8s:1.0.0 # Remplacer par l'image construite
           ports:
             - containerPort: 5000
         # Should i add Db config here?
