@@ -17,41 +17,41 @@ spec:
         app: postgres
     spec:
       containers:
-      - name: db
-        image: postgres:12.0-alpine
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_USER
-        - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_DB
-        - name: POSTGRES_HOST_AUTH_METHOD
-          valueFrom:
-            configMapKeyRef:
-              name: postgres-config
-              key: POSTGRES_HOST_AUTH_METHOD
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-secret
-              key: POSTGRES_PASSWORD
-        volumeMounts: #volume mounted to the container using PVC
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
+        - name: db
+          image: postgres:12.0-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_HOST_AUTH_METHOD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_HOST_AUTH_METHOD
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+          volumeMounts: #volume mounted to the container using PVC
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
-  - metadata:
-      name: postgres-storage
-    spec:
-      accessModes:
-          - ReadWriteMany #pour que plusieurs pods ecrivent dessus
-      storageClassName: local-path  # Nom de la StorageClass par defaut de Rancher
-      resources:
-        requests:
-          storage: 10Gi
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce #pour que plusieurs pods ecrivent dessus
+        storageClassName: local-path # Nom de la StorageClass par defaut de Rancher
+        resources:
+          requests:
+            storage: 10Gi
