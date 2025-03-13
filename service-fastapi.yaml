@@ -6,11 +6,11 @@ metadata:
   labels:
     app: fastapi
 spec:
- #type: NodePort
+  type: NodePort
   selector:
     app: fastapi
   ports:
     - protocol: TCP
       port: 5000 #service port
       targetPort: 5000 #container port
-      #nodePort: 30100
+      nodePort: 30100
