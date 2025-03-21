@@ -22,32 +22,29 @@ spec:
           image: astridehugo/fastapi-k8s:1.0.0 #  l'image construite sur dockerhub
           ports:
             - containerPort: 5000
-          env:
-            - name: POSTGRES_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_USER
-            - name: POSTGRES_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_DB
-            - name: POSTGRES_HOST_AUTH_METHOD
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_HOST_AUTH_METHOD
-            - name: POSTGRES_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-config
-                  key: POSTGRES_HOST
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_PASSWORD # passer les informations de configuration PostgreSQL (DB_HOST, DB_PORT, DB_NAME, DB_USER,
+          # env:
+          #   - name: POSTGRES_USER
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: postgres-config
+          #         key: POSTGRES_USER
+          #   - name: POSTGRES_DB
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: postgres-config
+          #         key: POSTGRES_DB
+          #   - name: POSTGRES_HOST_AUTH_METHOD
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: postgres-config
+          #         key: POSTGRES_HOST_AUTH_METHOD
+          #   - name: POSTGRES_HOST
+          #     value: "db" # le nom du service db
+          #   - name: POSTGRES_PASSWORD
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: postgres-secret
+          #         key: POSTGRES_PASSWORD # passer les informations de configuration PostgreSQL (DB_HOST, DB_PORT, DB_NAME, DB_USER,
 
 ---
 apiVersion: v1

@@ -60,7 +60,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service # doit mapper avec le host de db-py file
+  name: db # doit mapper avec le host de db-py file
   namespace: standard
   labels:
     app: postgres
