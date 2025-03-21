@@ -55,3 +55,20 @@ spec:
         resources:
           requests:
             storage: 10Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service # doit mapper avec le host de db-py file
+  namespace: standard
+  labels:
+    app: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432 #service port
+      targetPort: 5432 #container port
+  #clusterIP: None  # Headless service requis pour le StatefulSet

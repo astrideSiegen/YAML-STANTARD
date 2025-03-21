@@ -1,18 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fastapi-ingress
-  namespace: standard
+  name: nginx-ingress
 spec:
   ingressClassName: traefik
   rules:
-    - host: userapp.astride-datascientest.ip-ddns.com #sous-domaine créé sur cloudns.net
+    - host: nginx80.astride-datascientest.ip-ddns.com #sous-domaine créé sur cloudns.net
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: fastapi-service
+                name: nginx-service
                 port:
                   number: 80

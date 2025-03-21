@@ -19,7 +19,50 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: datascientest/fastapi-k8s:1.0.0 # Remplacer par l'image construite
+          image: astridehugo/fastapi-k8s:1.0.0 #  l'image construite sur dockerhub
           ports:
             - containerPort: 5000
-        # Should i add Db config here?
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_HOST_AUTH_METHOD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_HOST_AUTH_METHOD
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD # passer les informations de configuration PostgreSQL (DB_HOST, DB_PORT, DB_NAME, DB_USER,
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service
+  namespace: standard
+  labels:
+    app: fastapi
+spec:
+  # type: NodePort
+  selector:
+    app: fastapi
+  ports:
+    - protocol: TCP
+      port: 80 #service port
+      targetPort: 5000 #container port
+      # nodePort: 30001
