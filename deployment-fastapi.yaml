@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: astridehugo/fastapi-k8s:1.0.0 #  l'image construite sur dockerhub
+          image: astridehugo/fastapi-k8s:1.0.0 #  l'image construite sur dockerhub dans mon compte
           ports:
             - containerPort: 5000
           # env:
